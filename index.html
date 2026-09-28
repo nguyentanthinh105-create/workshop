@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>[Lab 03] Performance Marketing — Xây hệ thống từ chiến lược đến doanh thu</title>
-<meta name="description" content="Lab 03: Performance Marketing for SME — xây hệ thống từ chiến lược đến doanh thu. Khai giảng 30.09.2026, học online qua Google Meet, 7 buổi.">
+<title>[Workshop 02] AI Campaign OS — Triển khai Campaign cuối năm 2026</title>
+<meta name="description" content="Workshop 02: AI Campaign OS — thiết kế workflow Brief → Research → Insight → Offer → Content cho team Marketing 1–3 người triển khai campaign cuối năm 2026.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,6 +152,20 @@
     content:'';position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.35) 55%,rgba(0,0,0,.85) 100%);
   }
+  .yt-follow{
+    display:flex;align-items:center;gap:10px;
+    padding:18px var(--gutter);
+    font-family:var(--ff-mono);font-size:13px;letter-spacing:.04em;text-transform:uppercase;
+    border-bottom:.5pt solid rgba(0,0,0,.3);
+    transition:opacity .25s ease;
+  }
+  .yt-follow--divider{border-top:.5pt solid rgba(0,0,0,.3);}
+  .yt-follow:hover{opacity:.6;}
+  .yt-follow span{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;border-radius:50%;background:var(--black);color:var(--white);
+    font-size:9px;flex-shrink:0;
+  }
   .hero__meta{
     display:flex;flex-wrap:wrap;gap:10px;
     padding:20px var(--gutter);
@@ -269,6 +283,22 @@
   .media-break{position:relative;overflow:hidden;}
   .media-break img{width:100%;height:auto;}
 
+  /* ---------- Promo banner ---------- */
+  .promo{padding:0 var(--gutter) 110px;}
+  .promo__banner{position:relative;display:block;overflow:hidden;aspect-ratio:21/9;color:var(--white);background:var(--black);}
+  .promo__banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease;}
+  .promo__banner:hover img{transform:scale(1.03);}
+  .promo__overlay{
+    position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;
+    padding:clamp(20px,3.5vw,48px);
+    background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.2) 40%,rgba(0,0,0,.75) 100%);
+  }
+  .promo__tag{align-self:flex-start;font-family:var(--ff-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(255,255,255,.5);padding:6px 12px;border-radius:1pt;}
+  .promo__title{font-size:clamp(22px,4vw,52px);font-weight:700;letter-spacing:-.02em;line-height:1.05;max-width:20ch;}
+  .promo__foot{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:20px;}
+  .promo__meta{font-size:clamp(13px,1.2vw,16px);color:rgba(255,255,255,.8);}
+  @media (max-width:760px){.promo{padding-bottom:72px;}.promo__banner{aspect-ratio:4/3;}}
+
   /* ---------- Trainer ---------- */
   .trainer{max-width:70ch;}
   .trainer__quote{font-size:clamp(24px,4vw,52px);font-weight:400;line-height:1.15;letter-spacing:-.01em;}
@@ -313,14 +343,6 @@
     footer{grid-template-columns:1fr 1fr;row-gap:32px;}
   }
   .menu-toggle.is-open{color:var(--white);}
-
-  .lecturer{display:grid;grid-template-columns:minmax(200px,340px) 1fr;gap:clamp(24px,4vw,56px);align-items:start;}
-  .lecturer__photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:60% 40%;border-radius:1pt;}
-  .lecturer__quote{margin-top:32px;padding-left:24px;border-left:2px solid var(--black);font-size:clamp(16px,1.6vw,20px);line-height:1.6;max-width:62ch;}
-  @media (max-width:760px){.lecturer{grid-template-columns:1fr;}.lecturer__photo{max-width:320px;}}
-  .acc-item summary .idx--session{width:64px;white-space:nowrap;}
-  .acc-item:has(.idx--session) .body-inner-pad{padding-left:88px;}
-  @media (max-width:560px){.acc-item:has(.idx--session) .body-inner-pad{padding-left:0;}}
 </style>
 </head>
 <body>
@@ -328,11 +350,11 @@
 <header id="siteHeader">
   <a class="brand" href="#top"><img src="entity-lab-logo.png" alt="Entity Lab"></a>
   <nav class="nav-desktop" id="navDesktop">
-    <a href="#ve-khoa-hoc">Dành cho ai</a>
-    <a href="#chuong-trinh">Chương trình</a>
-    <a href="#giang-vien">Giảng viên</a>
-    <a href="#quyen-loi">Quyền lợi</a>
-    <a href="#faq">FAQ</a>
+    <a href="#ve-workshop">Về workshop</a>
+    <a href="#doi-tuong">Dành cho ai</a>
+    <a href="#noi-dung">Nội dung</a>
+    <a href="#trainer">Trainer</a>
+    <a href="#uu-dai">Ưu đãi</a>
     <a class="nav-cta" href="#dang-ky">Đăng ký</a>
   </nav>
   <button class="menu-toggle" id="menuToggle">Menu</button>
@@ -343,372 +365,278 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero__bg">
-      <video src="main1.mp4" poster="main_2_00000.png" autoplay muted loop playsinline preload="auto"></video>
+      <video src="main.mp4" poster="image0.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
     <div class="hero__body">
-      <h1 class="h-display hero__title reveal">Performance<br>Marketing</h1>
-      <p class="hero__sub reveal">Lab 03 — Xây hệ thống từ chiến lược đến doanh thu. Làm chủ hệ thống Performance Marketing for SME chuẩn Fullstack với lộ trình thực chiến: từ lập kế hoạch, chuẩn hóa Content, bứt phá doanh số qua quảng cáo đến đo lường và tối ưu hiệu quả từng đồng ngân sách.</p>
+      <h1 class="h-display hero__title reveal">1–3 người,<br>8 dịp bán hàng,<br>12 tuần</h1>
+      <p class="hero__sub reveal">Workshop 02 — AI Campaign OS. Thiết kế lại workflow triển khai campaign cuối năm: phần nào giao cho AI, phần nào giữ lại cho con người quyết định — để team 1–3 người vẫn chạy hết một campaign từ Brief đến Content.</p>
       <div class="hero__actions reveal">
-        <a class="btn" href="https://app.notion.com/p/3d0c6093bf71802ca919da173a68d128?pvs=21">Đặt trước miễn phí</a>
-        <a class="btn btn--ghost" href="#chuong-trinh">Xem chương trình →</a>
+        <a class="btn" href="#dang-ky">Đăng ký nhận tài liệu</a>
+        <a class="btn btn--ghost" href="#noi-dung">Xem nội dung workshop →</a>
       </div>
     </div>
     <div class="scroll-cue">Cuộn xuống</div>
   </section>
 
   <div class="hero__meta">
-    <span class="mono-tag">💻 Online — Google Meet</span>
-    <span class="mono-tag">📅 Khai giảng 30.09.2026</span>
-    <span class="mono-tag">🕢 19:30–21:30, Thứ 4 &amp; Thứ 6</span>
-    <span class="mono-tag">📚 7 buổi</span>
-    <span class="mono-tag">🟢 Đang mở đăng ký</span>
+    <span class="mono-tag">📅 01.10.2026</span>
+    <span class="mono-tag">🕢 19:30–21:00</span>
+    <span class="mono-tag">⏱ 90 phút</span>
+    <span class="mono-tag">📡 Livestream Youtube</span>
+    <span class="mono-tag">🟢 Miễn phí · Đang mở đăng ký</span>
   </div>
 
-  <!-- DÀNH CHO AI -->
-  <section class="section" id="ve-khoa-hoc">
-    <div class="section__label"><span class="eyebrow">Khóa học này dành cho ai</span></div>
+  <a class="yt-follow reveal" href="https://www.youtube.com/@nttLABlearn" target="_blank" rel="noopener">
+    <span>▶</span> Theo dõi kênh Youtube tại đây
+  </a>
+
+  <!-- VỀ WORKSHOP -->
+  <section class="section" id="ve-workshop">
+    <div class="section__label"><span class="eyebrow">Về workshop</span></div>
     <div class="section__content">
-      <p class="h-title reveal" style="max-width:40ch"><strong>Khóa học này sinh ra cho doanh nghiệp làm marketing với nguồn lực hạn chế. Không phải mô hình có phòng ban 10 người và ngân sách không giới hạn.</strong> Đây là cách vận hành Performance Marketing khi bạn phải tự làm gần như mọi thứ.</p>
+      <div class="statement reveal">
+        <p class="h-title"><strong>Quý 4 là mùa mà doanh nghiệp nào cũng dồn số.</strong> Từ 20/10 đến Tết có tám dịp đáng chạy: 20/10, Halloween, 11.11, 20/11, Black Friday, Noel, Countdown, rồi Tết nối ngay sau đó. Mỗi dịp cần tối thiểu 3–4 tuần chuẩn bị. Cộng lại, bạn có khoảng 12 tuần để làm khối lượng việc của nửa năm.</p>
+        <p class="body-lg">Có phòng marketing 10 người, đó là bài toán phân việc. Có 1–3 người, đó là bài toán sống còn.</p>
+        <p class="body-lg">Bạn đã thử AI rồi. Nó viết nhanh thật — nhưng mỗi lần dùng là một lần bắt đầu lại từ đầu. Prompt hôm nay không nối được với prompt hôm qua. Content ra hàng loạt nhưng không ai trả lời được câu hỏi: <strong>bài này phục vụ offer nào, offer này sinh ra từ insight nào, insight này lấy từ dữ liệu gì?</strong></p>
+        <p class="body-lg">Nên kết quả quen thuộc là: làm rất nhiều, mệt rất thật, mà campaign vẫn trôi qua mùa cao điểm.</p>
+        <p class="body-lg"><strong>Điều khó chịu nhất: vấn đề thường không nằm ở chỗ bạn thiếu kiến thức marketing.</strong> Bạn biết cần research, cần insight, cần offer, cần content. Bạn chỉ không có đủ người và đủ giờ để làm tuần tự từng bước — nên cuối cùng bỏ qua bốn bước đầu và nhảy thẳng vào bước cuối: đăng bài.</p>
+      </div>
+      <div class="pull reveal">
+        <p><strong>Vậy nên workshop này không dạy bạn làm nhanh hơn.</strong> Nó thiết kế lại workflow: phần nào chuẩn hóa được thì giao cho AI, phần nào phải có người quyết định thì giữ lại cho bạn.</p>
+        <p>Kết quả là một quy trình 1–3 người vẫn chạy hết được một campaign cuối năm — từ Brief đến Content — mà không bỏ sót bước nào.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÀNH CHO AI -->
+  <section class="section" id="doi-tuong">
+    <div class="section__label"><span class="eyebrow">Dành cho ai</span></div>
+    <div class="section__content">
+      <p class="h-title reveal" style="max-width:36ch"><strong>Workshop này sinh ra cho team Marketing 1–3 người phải triển khai campaign cuối năm trong 6 tuần với ngân sách giới hạn.</strong></p>
 
       <div class="rows reveal" style="margin-top:48px">
         <div class="row">
           <div class="row__index">01</div>
           <div>
-            <div class="row__title">Chủ doanh nghiệp SME</div>
-            <div class="row__desc">Đang chi tiền quảng cáo nhưng không biết tiền chảy đi đâu, đơn về từ đâu, và điểm nào trong doanh nghiệp đang tắc nghẽn.</div>
+            <div class="row__title">Fullstack Marketer — một mình một ngựa</div>
+            <div class="row__desc">Tự làm từ ý tưởng, content, creative đến chạy Ads và báo cáo. Biết cần làm gì nhưng không đủ thời gian và nguồn lực để làm đủ.</div>
           </div>
         </div>
         <div class="row">
           <div class="row__index">02</div>
           <div>
-            <div class="row__title">Marketer in-house team 1–3 người</div>
-            <div class="row__desc">Một mình gánh từ research, chiến lược, chạy ads đến đọc số. Cần một hệ thống tinh gọn thay vì chắp vá từng mảnh.</div>
+            <div class="row__title">Marketing Leader của team 2–5 người</div>
+            <div class="row__desc">Cần một hệ thống vận hành để team nhỏ chạy được campaign lớn. Muốn chèn AI vào workflow mà không mất kiểm soát chất lượng.</div>
           </div>
         </div>
         <div class="row">
           <div class="row__index">03</div>
           <div>
-            <div class="row__title">Người mới chuyển sang Performance</div>
-            <div class="row__desc">Biết chạy ads nhưng chưa có tư duy data-driven, chưa phân biệt được Performance với Brand và Digital Marketing.</div>
+            <div class="row__title">Chủ doanh nghiệp SME &amp; Startup</div>
+            <div class="row__desc">Trực tiếp làm hoặc duyệt Marketing. Ngân sách giới hạn, không thể tuyển thêm người, nhưng vẫn phải ra số cuối năm.</div>
+          </div>
+        </div>
+        <div class="row row--muted">
+          <div class="row__index">—</div>
+          <div>
+            <div class="row__title">Không dành cho</div>
+            <div class="row__desc">Người muốn học Performance Marketing từ nền tảng · Người muốn hướng dẫn từng nút trong Ads Manager · Người tìm một bộ prompt copy‑paste. Ở đây bạn học cách thiết kế workflow, prompt chỉ là công cụ bên trong.</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- GIÚP GÌ -->
+  <!-- LỢI ÍCH: TRƯỚC / SAU -->
   <section class="section" id="loi-ich">
-    <div class="section__label"><span class="eyebrow">Khóa học giúp gì cho bạn</span></div>
+    <div class="section__label"><span class="eyebrow">Workshop này giúp gì</span></div>
     <div class="section__content">
-      <p class="h-title reveal" style="max-width:44ch"><strong>Bạn cầm về một hệ thống chạy được, không phải một tập slide.</strong> Mỗi buổi giải quyết một mắt xích trong chuỗi: nền tảng → research → chiến lược → data → dòng Lead → tự động hóa.</p>
+      <p class="h-title reveal" style="max-width:44ch"><strong>Bạn rời workshop với một workflow chạy được, không phải một tập slide.</strong> 90 phút đi hết một vòng campaign: Brief → Research → Insight → Offer → Content → Campaign Blueprint, trên chính bài toán cuối năm của bạn.</p>
 
       <div class="compare reveal" style="margin-top:56px">
         <div class="compare__col compare--before">
           <span class="eyebrow">Trước đây</span>
-          <div class="compare__item"><span class="mark">×</span><div>Chạy theo cảm tính<em>Chạy ads theo cảm tính, không phân biệt được mình đang tiêu tiền cho Brand hay cho Performance.</em></div></div>
-          <div class="compare__item"><span class="mark">×</span><div>Đổ thêm ngân sách<em>Đơn giản là tăng budget, nhưng không biết vấn đề thật sự nằm ở đâu trong doanh nghiệp.</em></div></div>
-          <div class="compare__item"><span class="mark">×</span><div>Nhìn số mà không hiểu<em>Mở bảng số liệu nhưng không biết chỉ số nào cốt lõi, tối ưu gì tiếp theo cho đúng.</em></div></div>
-          <div class="compare__item"><span class="mark">×</span><div>Lead rơi rớt<em>Lead về rồi nguội dần, team 1–3 người làm thủ công không xuể, chốt chậm và mất đơn.</em></div></div>
+          <div class="compare__item"><span class="mark">×</span><div>Mỗi lần dùng AI là một lần bắt đầu lại<em>Prompt rời rạc, output không nối được vào nhau, không ra được một campaign hoàn chỉnh.</em></div></div>
+          <div class="compare__item"><span class="mark">×</span><div>Làm được Content nhưng không có Strategy<em>Đăng bài theo trend và dịp lễ, không có căn cứ chọn dịp nào, thông điệp nào, offer nào.</em></div></div>
+          <div class="compare__item"><span class="mark">×</span><div>Bắt đầu từ ý tưởng thay vì từ dữ liệu<em>Nghĩ ra content trước rồi mới tìm lý do, nên offer không chạm đúng động lực mua.</em></div></div>
+          <div class="compare__item"><span class="mark">×</span><div>Không đủ content để chạy hết mùa vụ<em>2 người sản xuất được vài bài, hụt hơi giữa campaign cao điểm.</em></div></div>
         </div>
         <div class="compare__col compare--after">
-          <span class="eyebrow">Sau khóa học</span>
-          <div class="compare__item"><span class="mark">✓</span><div>Chạy theo mục tiêu<em>Biết rõ mỗi đồng ngân sách đang phục vụ cấp độ mục tiêu nào.</em></div></div>
-          <div class="compare__item"><span class="mark">✓</span><div>Sửa đúng chỗ nghẽn<em>Đọc được bối cảnh và phễu Marketing, xác định đúng điểm tắc nghẽn trước khi tăng thêm chi phí.</em></div></div>
-          <div class="compare__item"><span class="mark">✓</span><div>Ra quyết định bằng data<em>Nắm các chỉ số Marketing cốt lõi, phân tích data để thấy bức tranh tổng thể và tối ưu có cơ sở.</em></div></div>
-          <div class="compare__item"><span class="mark">✓</span><div>Kiểm soát dòng Lead<em>Thu hút Lead rẻ hơn, nuôi dưỡng để rút ngắn thời gian chốt, dùng AI và CRM tự động cho team tinh gọn.</em></div></div>
+          <span class="eyebrow">Sau workshop</span>
+          <div class="compare__item"><span class="mark">✓</span><div>Một workflow liền mạch từ Brief đến Content<em>Output của bước trước là input của bước sau — không còn prompt rời.</em></div></div>
+          <div class="compare__item"><span class="mark">✓</span><div>Biết AI làm gì, người làm gì<em>Phân vai rõ ràng theo từng công đoạn, có checkpoint bắt buộc người duyệt.</em></div></div>
+          <div class="compare__item"><span class="mark">✓</span><div>Insight ra được Offer, Offer ra được Content<em>Mỗi bước đều kết thúc bằng một output dùng được ngay.</em></div></div>
+          <div class="compare__item"><span class="mark">✓</span><div>Một Campaign Blueprint cầm về chạy được<em>4 output ghép lại thành bản kế hoạch campaign cuối năm hoàn chỉnh.</em></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CHƯƠNG TRÌNH -->
-  <section class="section" id="chuong-trinh">
-    <div class="section__label"><span class="eyebrow">Chương trình khóa học</span></div>
+  <!-- NỘI DUNG WORKSHOP -->
+  <section class="section" id="noi-dung">
+    <div class="section__label"><span class="eyebrow">Nội dung workshop</span></div>
     <div class="section__content">
-      <p class="h-title reveal" style="max-width:46ch">Làm chủ hệ thống <strong>Performance Marketing for SME</strong> chuẩn Fullstack với lộ trình thực chiến: từ lập kế hoạch, chuẩn hóa Content, bứt phá doanh số qua quảng cáo đến đo lường và tối ưu hiệu quả từng đồng ngân sách.</p>
+      <p class="h-title reveal" style="max-width:46ch"><strong>Mỗi module là một mắt xích:</strong> output của module trước là input của module sau. Tỷ lệ 15% lý thuyết – 70% live build – 15% Q&amp;A.</p>
 
       <div class="acc reveal" style="margin-top:48px">
         <details class="acc-item" open>
-          <summary><span class="idx idx--session">Buổi 1</span><span class="ttl">Performance Marketing Foundations</span><span class="plus"></span></summary>
+          <summary><span class="idx">00</span><span class="ttl">Campaign Brief</span><span class="plus"></span></summary>
           <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
+            <p><strong>Học viên làm gì:</strong> Nhận một bài toán cuối năm thực tế và chuyển nó thành brief của chính mình.</p>
             <ul>
-              <li>3 Cấp độ mục tiêu của Performance Marketing</li>
-              <li>Tìm hiểu hệ thống Fullstack Performance Marketing tinh gọn cho SME</li>
-              <li>Đánh giá hiện trạng: doanh nghiệp bạn đang hổng ở mắt xích nào</li>
+              <li>Đọc brief mẫu: doanh nghiệp nhỏ, 6 tuần, ngân sách giới hạn, phải ra doanh thu</li>
+              <li>Ba thông tin bắt buộc phải có trước khi đụng tới AI: sản phẩm, mục tiêu, giới hạn nguồn lực</li>
+              <li>Viết lại brief theo bài toán cuối năm của doanh nghiệp bạn</li>
             </ul>
-            <div class="output">📤 Đầu ra: Hệ thống Marketing tinh gọn cho doanh nghiệp SME + cấp độ mục tiêu ưu tiên</div>
+            <div class="output">📤 Output: Brief</div>
           </div></div></div>
         </details>
+
         <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 2</span><span class="ttl">Research</span><span class="plus"></span></summary>
+          <summary><span class="idx">01</span><span class="ttl">Research — Dùng AI tìm thị trường, khách hàng, đối thủ</span><span class="plus"></span></summary>
           <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
+            <p><strong>Học viên làm gì:</strong> Gọi được dữ liệu thị trường về một chỗ để dùng cho cả campaign.</p>
             <ul>
-              <li>Phân tích bối cảnh doanh nghiệp trước khi chạy Performance</li>
-              <li>Research thị trường và đối thủ với chi phí thấp nhất</li>
-              <li>Tìm hiểu phễu Marketing giúp doanh nghiệp SME giảm tải chi phí quảng cáo</li>
-              <li>Xác định điểm tắc nghẽn trong doanh nghiệp</li>
+              <li>Nguồn dữ liệu thật để nạp cho AI: search, mạng xã hội, review, cộng đồng, dữ liệu bán hàng</li>
+              <li>Cách hỏi để AI trả về tín hiệu thị trường, không phải kiến thức chung chung</li>
+              <li>Quét đối thủ mùa cuối năm: họ đang bán angle nào, offer nào, khoảng trống nào còn lại</li>
+              <li>Gom toàn bộ dữ liệu về một Research Board để bước sau dùng lại được</li>
             </ul>
-            <div class="output">📤 Đầu ra: Research Sheet + Sơ đồ phễu có đánh dấu điểm tắc nghẽn</div>
+            <div class="output">📤 Output: Research Board</div>
           </div></div></div>
         </details>
+
         <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 3</span><span class="ttl">Hình thành chiến lược thực chiến và triển khai</span><span class="plus"></span></summary>
+          <summary><span class="idx">02</span><span class="ttl">Quy trình triển khai Campaign tối giản cho SME</span><span class="plus"></span></summary>
           <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
+            <p><strong>Học viên làm gì:</strong> Đi hết chuỗi Insight → Offer → Content trên chính dữ liệu vừa research.</p>
+            <p style="margin-top:18px"><strong>Bước 1 — Insight: từ data ra vấn đề đáng khai thác</strong></p>
             <ul>
-              <li>Tổng hợp research và insight thành chiến lược Performance Marketing</li>
-              <li>Xây dựng chiến lược Performance theo framework</li>
-              <li>Tính KPI ngược từ doanh thu và phân bổ ngân sách theo phễu</li>
-              <li>Mô hình triển khai một campaign với nguồn lực hạn chế</li>
+              <li>Phân nhóm dữ liệu thô thành các cụm vấn đề của khách hàng</li>
+              <li>Bóc tách dịp cuối năm: ai mua – mua cho ai – mua vì điều gì – vì sao mua lúc này</li>
+              <li>Phản biện AI thay vì chấp nhận câu trả lời đầu tiên</li>
+              <li>Chọn 1 insight đáng đánh nhất cho mùa cuối năm</li>
             </ul>
-            <div class="output">📤 Đầu ra: Performance Plan 1 trang + Bảng KPI ngược &amp; phân bổ ngân sách</div>
+            <p style="margin-top:18px"><strong>Bước 2 — Offer: biến Insight thành lý do khách hàng mua</strong></p>
+            <ul>
+              <li>Cấu trúc một Offer cuối năm: ai – vấn đề – lời hứa – lý do tin – lý do mua ngay</li>
+              <li>Thiết kế Offer khi biên lợi nhuận không cho phép giảm giá sâu</li>
+              <li>Dùng AI sinh 3 hướng Offer khác nhau, rồi chọn bằng tiêu chí thay vì cảm tính</li>
+            </ul>
+            <p style="margin-top:18px"><strong>Bước 3 — Content: biến Offer thành hệ thống content</strong></p>
+            <ul>
+              <li>Từ 1 Offer ra các tuyến content theo vai trò: thu hút – tạo nhu cầu – xây niềm tin – chuyển đổi</li>
+              <li>Sinh hàng loạt hook và content angle bằng AI, rồi lọc bằng 4 tiêu chí</li>
+              <li>Một angle dùng lại cho Organic, Ads và Retargeting mà không bị trùng lặp</li>
+            </ul>
+            <div class="output">📤 Output: Insight Card · Offer Card · Content Pack</div>
           </div></div></div>
         </details>
+
         <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 4</span><span class="ttl">Offer, Content &amp; Creative phục vụ chuyển đổi</span><span class="plus"></span></summary>
+          <summary><span class="idx">03</span><span class="ttl">Đề bài giải case thực chiến</span><span class="plus"></span></summary>
           <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
+            <p><strong>Học viên làm gì:</strong> Ghép toàn bộ output thành Campaign hoàn chỉnh.</p>
             <ul>
-              <li>Xây dựng Offer và cấu trúc thông điệp theo từng tầng phễu</li>
-              <li>Ma trận Content – Creative: sinh đủ biến thể để test</li>
-              <li>Quy trình Brief → Content → Creative → Review cho team ít người</li>
-              <li>Cấu trúc trang chuyển đổi và các lỗi làm rớt tỷ lệ chuyển đổi</li>
+              <li>Nhìn lại toàn bộ chuỗi: Brief → Research → Insight → Offer → Content</li>
+              <li>Nhận template để tái sử dụng quy trình cho 11.11, Black Friday, Noel và Tết</li>
             </ul>
-            <div class="output">📤 Đầu ra: Ma trận Content – Creative + Brief Landing Page</div>
+            <div class="output">📤 Output: Campaign Blueprint</div>
           </div></div></div>
         </details>
+
         <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 5</span><span class="ttl">Triển khai kênh &amp; Tracking</span><span class="plus"></span></summary>
+          <summary><span class="idx">04</span><span class="ttl">Q&amp;A — Giải case cùng người tham gia</span><span class="plus"></span></summary>
           <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
+            <p><strong>Học viên làm gì:</strong> Mang bài toán thật của mình ra hỏi trực tiếp.</p>
             <ul>
-              <li>Chọn kênh theo bài toán: Meta, TikTok, Google Search, Zalo, sàn TMĐT</li>
-              <li>Cấu trúc tài khoản và chiến dịch để đọc được số, test được biến</li>
-              <li>Thiết lập tracking: GA4, Google Tag Manager, Pixel và sự kiện chuyển đổi</li>
-              <li>UTM, quy ước đặt tên và checklist trước khi bật ngân sách</li>
+              <li>Gỡ case campaign cuối năm của người tham gia: chọn dịp nào, offer nào, content ra sao</li>
+              <li>Soi lại output vừa build: chỗ nào AI làm hộ được, chỗ nào bắt buộc người quyết định</li>
+              <li>Điều chỉnh quy trình theo ngành hàng, ngân sách và nhân sự thực tế</li>
             </ul>
-            <div class="output">📤 Đầu ra: Cấu trúc campaign đa kênh + Checklist tracking</div>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 6</span><span class="ttl">Đọc Data, tối ưu và Kiểm soát dòng Lead</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <ul>
-              <li>Các chỉ số Marketing cốt lõi và tư duy Data-driven khi ra quyết định</li>
-              <li>Phân tích Data để hiểu bức tranh tổng thể, cấu trúc testing</li>
-              <li>Hiểu rõ thế nào là một Lead chất lượng, thu hút Lead với chi phí rẻ nhất</li>
-              <li>Nuôi dưỡng Lead, giảm thời gian chốt đơn và giảm tỷ lệ rơi rớt</li>
-            </ul>
-            <div class="output">📤 Đầu ra: Dashboard Marketing + Quy trình quản lý và nuôi dưỡng Lead</div>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx idx--session">Buổi 7</span><span class="ttl">Thực hành tổng hợp &amp; Ứng dụng AI tự động hóa</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <ul>
-              <li>Giải case giả định thường gặp trong thực tế</li>
-              <li>Hệ thống hóa công việc Marketing cho team 1-3 người</li>
-              <li>Ứng dụng AI trong research, sản xuất nội dung và phân tích data</li>
-              <li>Xây dựng hệ thống CRM tự động</li>
-            </ul>
-            <div class="output">📤 Đầu ra: Hồ sơ Performance hoàn chỉnh + Bộ AI/CRM tinh gọn</div>
+            <div class="output">📤 Output: Hướng xử lý cho case của bạn</div>
           </div></div></div>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- GIẢNG VIÊN -->
-  <section class="section" id="giang-vien">
-    <div class="section__label"><span class="eyebrow">Giới thiệu Lecturer</span></div>
-    <div class="section__content">
-      <div class="lecturer">
-        <div class="lecturer__photo reveal"><img src="low-profile-image.png" alt="Thịnh Nguyễn"></div>
-        <div class="lecturer__info">
-          <h2 class="h-title reveal" style="font-weight:700">Thịnh Nguyễn</h2>
-          <p class="body-md reveal" style="margin-top:6px">SME Growth &amp; Branding Strategist</p>
-          <div class="trainer__tags reveal">
-            <span class="mono-tag">Thực chiến Branding &amp; Marketing cho SME</span>
-            <span class="mono-tag">Growth Strategist cho 3 Brand</span>
-            <span class="mono-tag">Hệ thống Performance cho team 1–3 người</span>
-          </div>
-          <blockquote class="lecturer__quote reveal">“Là một người làm trong lĩnh vực Marketing SME, mình tin rằng thương hiệu mạnh không đến từ ngân sách lớn, mà đến từ định vị đúng và chiến lược tinh gọn. Trên vai trò Giảng viên, mình hướng tới việc trang bị cho học viên bộ công cụ làm nghề thực tế, năng lực phân tích thị trường và tư duy tối ưu chi phí — biến kiến thức chuyên môn thành năng lực hành động ngay lập tức.”</blockquote>
+  <!-- BANNER KHÓA HỌC PERFORMANCE MARKETING -->
+  <section class="promo">
+    <a class="promo__banner reveal" href="https://nguyentanthinh105-create.github.io/khoahoc/">
+      <img src="pm-banner.png" alt="Lab 03 — Performance Marketing">
+      <div class="promo__overlay">
+        <span class="promo__tag">Khóa học · Lab 03</span>
+        <h3 class="promo__title">Performance Marketing:<br>xây hệ thống từ chiến lược đến doanh thu</h3>
+        <div class="promo__foot">
+          <span class="promo__meta">Khai giảng 30.09.2026 · Online · 7 buổi</span>
+          <span class="btn">Xem khóa học →</span>
         </div>
+      </div>
+    </a>
+  </section>
+
+  <!-- TRAINER -->
+  <section class="section" id="trainer">
+    <div class="section__label"><span class="eyebrow">Trainer</span></div>
+    <div class="section__content trainer">
+      <p class="trainer__quote reveal">“Team nhỏ không thua vì thiếu kiến thức, mà vì thiếu hệ thống. AI không làm bạn giỏi hơn — nó làm workflow của bạn gánh được nhiều hơn, nếu bạn thiết kế đúng chỗ để con người ra quyết định.”</p>
+      <div class="trainer__who reveal">
+        <div class="avatar"><img src="trainer.webp" alt="Thịnh Nguyễn"></div>
+        <div>
+          <div class="name">Thịnh Nguyễn</div>
+          <div class="role">SME Growth &amp; Branding Strategist</div>
+        </div>
+      </div>
+      <div class="trainer__tags reveal">
+        <span class="mono-tag">Thực chiến Branding &amp; Marketing cho SME</span>
+        <span class="mono-tag">Growth Strategist cho 3 Brand</span>
+        <span class="mono-tag">Hệ thống Performance cho team 1–3 người</span>
       </div>
     </div>
   </section>
 
   <!-- ƯU ĐÃI -->
   <section class="section" id="uu-dai">
-    <div class="section__label"><span class="eyebrow">Ưu đãi khóa học</span></div>
+    <div class="section__label"><span class="eyebrow">Ưu đãi khi tham gia Workshop</span></div>
     <div class="section__content">
-      <div class="rows reveal">
-        <div class="row">
-          <div class="row__index">🎁</div>
-          <div><div class="row__title">Giảm 10% khi đặt trước (miễn phí) trước ngày 20/09/2026</div></div>
-        </div>
-        <div class="row">
-          <div class="row__index">🎁</div>
-          <div><div class="row__title">Giảm 15% khi đăng ký theo nhóm (2 bạn trở lên)</div></div>
-        </div>
-      </div>
-      <p class="body-md reveal" style="margin-top:24px"><em>Lưu ý: Toàn bộ ưu đãi chỉ có hiệu lực đến ngày 27/9/2026.</em></p>
-    </div>
-  </section>
-
-  <!-- QUYỀN LỢI -->
-  <section class="section" id="quyen-loi">
-    <div class="section__label"><span class="eyebrow">Quyền lợi học viên</span></div>
-    <div class="section__content">
-      <p class="h-title reveal" style="max-width:44ch"><strong>Khóa học kết thúc sau 6 buổi, nhưng phần bạn giữ lại thì không.</strong> Record, tài liệu, template AI và ưu đãi cho những khóa sau đều đi cùng bạn.</p>
-
-      <div class="acc reveal" style="margin-top:48px">
-        <details class="acc-item" open>
-          <summary><span class="idx">01</span><span class="ttl">Record &amp; tài liệu bài giảng</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <ul>
-              <li>1 năm xem lại record của từng buổi — bỏ lỡ hay quên chỗ nào cũng mở lại được.</li>
-              <li>Vĩnh viễn truy cập bộ tài liệu khóa học, dùng lại mỗi lần bắt tay vào campaign mới.</li>
-              <li>Được bổ sung kiến thức mới từ các khóa tương tự mở sau (tối đa 2 khóa kế tiếp).</li>
-            </ul>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">02</span><span class="ttl">Tài nguyên AI</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <ul>
-              <li>Template hệ thống AI soạn sẵn, thiết kế riêng cho team marketing ít người.</li>
-              <li>Claude Skill dành riêng cho Marketing — dùng ngay, không phải tự viết prompt từ đầu.</li>
-              <li>Hệ thống tài liệu AI Marketing để tra cứu khi cần triển khai thật.</li>
-            </ul>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">03</span><span class="ttl">Ưu đãi cho các khóa tiếp theo</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <ul>
-              <li>Giảm 10% khi đăng ký khóa học thứ hai.</li>
-              <li>Giảm 25% cho khóa thứ ba trở đi.</li>
-            </ul>
-          </div></div></div>
-        </details>
+      <div class="pull reveal">
+        <p>🎁 <strong>Giảm 15% cho toàn bộ khóa học tại Entity LAB</strong></p>
+        <p>Khi đăng ký trong thời gian workshop đang diễn ra.</p>
       </div>
     </div>
   </section>
 
-  <!-- CHÍNH SÁCH -->
-  <section class="section" id="chinh-sach">
-    <div class="section__label"><span class="eyebrow">Chính sách khóa học</span></div>
-    <div class="section__content">
-      <div class="rows reveal">
-        <div class="row">
-          <div class="row__index">01</div>
-          <div>
-            <div class="row__title">Đặt trước giữ giá ưu đãi</div>
-            <div class="row__desc">Đặt trước <strong>miễn phí</strong> để giữ mức giá ưu đãi của khóa học.</div>
-            <div class="row__desc"><em>Lưu ý: Đặt trước không đồng nghĩa với giữ chỗ — chỗ học chỉ được giữ khi đã thanh toán.</em></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="row__index">02</div>
-          <div>
-            <div class="row__title">Hoàn tất học phí trước ngày 27/09/2026</div>
-            <div class="row__desc">Phần học phí còn lại cần được thanh toán trước ngày <strong>27/09/2026</strong>.</div>
-            <div class="row__desc"><em>Lưu ý: Thanh toán sau mốc này, toàn bộ ưu đãi sẽ không còn hiệu lực. Chúng mình sẽ KHÔNG HOÀN TRẢ học phí với MỌI LÝ DO.</em></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="row__index">03</div>
-          <div>
-            <div class="row__title">Sau khi thanh toán đầy đủ</div>
-            <div class="row__desc">Học viên được thêm vào <strong>group Zalo</strong> của lớp và nhận <strong>tài liệu khóa học</strong>.</div>
-            <div class="row__desc">Link vào học được gửi trong group <strong>trước mỗi buổi học 30 phút</strong>.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section" id="faq">
-    <div class="section__label"><span class="eyebrow">Câu hỏi thường gặp</span></div>
-    <div class="section__content">
-      <div class="acc reveal">
-        <details class="acc-item" open>
-          <summary><span class="idx">01</span><span class="ttl">Tôi chưa có nền tảng marketing thì học có theo kịp không?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Hầu hết kiến thức trong khóa học thuộc cấp độ trung cấp trở lên. Tụi mình có gửi sẵn các tài liệu kiến thức cơ bản để bạn tự học, tuy nhiên để theo kịp tiến độ và tiếp thu tốt nhất trên lớp, bạn nên chủ động trang bị trước các kiến thức nền tảng này nhé.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">02</span><span class="ttl">Đặt trước (Pre-order) có mất phí không và có chắc chắn giữ được chỗ học?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Việc đặt trước là hoàn toàn miễn phí để bạn giữ mức giá ưu đãi. Tuy nhiên, đặt trước không đồng nghĩa với giữ chỗ, chỗ học chỉ chính thức được xác nhận khi bạn hoàn tất thanh toán học phí cho tụi mình.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">03</span><span class="ttl">Tôi có thể cộng dồn ưu đãi đặt trước và ưu đãi đăng ký theo nhóm không?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Có nha. Bạn được áp dụng giảm 10% khi đặt trước và giảm tiếp 15% nếu đăng ký theo nhóm từ 2 người trở lên (miễn là hoàn tất thanh toán đúng hạn cho tụi mình).</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">04</span><span class="ttl">Điều gì xảy ra nếu tôi thanh toán sau ngày 27/09/2026?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Sau mốc thời gian này, toàn bộ ưu đãi giảm giá sẽ không còn hiệu lực. Bạn sẽ cần thanh toán theo mức học phí gốc để tham gia lớp cùng tụi mình.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">05</span><span class="ttl">Khóa học có chính sách hoàn tiền không nếu tôi bận không học được?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Tụi mình không hỗ trợ hoàn trả học phí với bất kỳ lý do nào sau khi bạn đã hoàn tất thanh toán. Bạn nên cân nhắc kỹ lịch trình cá nhân trước khi chuyển khoản nhé.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">06</span><span class="ttl">Nếu nghỉ học hoặc bỏ lỡ một buổi thì có được học bù hay xem lại bài giảng không?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Bạn hoàn toàn yên tâm. Toàn bộ các buổi học đều được ghi hình và bạn có 1 năm quyền truy cập vào video record để chủ động ôn lại bài bất cứ lúc nào.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">07</span><span class="ttl">Sau khi thanh toán học phí xong thì quy trình tiếp theo là gì?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Tụi mình sẽ thêm bạn vào Group Zalo của lớp và gửi bộ tài liệu khóa học. Link truy cập lớp học trực tuyến sẽ được tụi mình gửi trong group trước mỗi buổi học 30 phút.</p>
-          </div></div></div>
-        </details>
-        <details class="acc-item">
-          <summary><span class="idx">08</span><span class="ttl">Bộ tài nguyên AI, tài liệu đi kèm và ưu đãi cho khóa sau như thế nào?</span><span class="plus"></span></summary>
-          <div class="body-wrap"><div class="body-inner"><div class="body-inner-pad">
-            <p>Bạn được truy cập vĩnh viễn bộ tài liệu khóa học, hệ thống tài liệu AI và Template/Claude Skill do tụi mình soạn sẵn. Đồng thời, tụi mình dành tặng ưu đãi giảm 10% cho khóa học thứ hai và 25% từ khóa thứ ba trở đi cho học viên cũ.</p>
-          </div></div></div>
-        </details>
-      </div>
-    </div>
-  </section>
+  <a class="yt-follow yt-follow--divider reveal" href="https://www.youtube.com/@nttLABlearn" target="_blank" rel="noopener">
+    <span>▶</span> Theo dõi kênh Youtube tại đây
+  </a>
 
   <!-- CTA -->
   <section class="cta" id="dang-ky">
     <div class="eyebrow reveal" style="color:rgba(255,255,255,.5)">Đăng ký</div>
-    <h2 class="h-display reveal" style="margin-top:20px">đăng ký khóa học<br>ngay hôm nay</h2>
-    <p class="cta__sub reveal">Khai giảng 30.09.2026 — học online qua Google Meet, 19:30–21:30 thứ 4 và thứ 6 hàng tuần.</p>
-    <a class="btn reveal" href="https://app.notion.com/p/3d0c6093bf71802ca919da173a68d128?pvs=21">👉 Đặt trước miễn phí</a>
+    <h2 class="h-display reveal" style="margin-top:20px">nhận tài liệu<br>miễn phí</h2>
+    <p class="cta__sub reveal">Để lại thông tin để nhận template, prompt library và lịch nhắc trước buổi live 01.10.2026, 19:30–21:00.</p>
+    <a class="btn reveal" href="#">👉 Đăng ký ngay</a>
   </section>
 
 </main>
 
 <footer>
   <div>
-    <strong>Khai giảng</strong>
-    30.09.2026
-  </div>
-  <div>
-    <strong>Lịch học</strong>
-    19:30 – 21:30<br>Thứ 4 &amp; Thứ 6 hàng tuần
+    <strong>Ngày diễn ra</strong>
+    01.10.2026<br>19:30 – 21:00 (90 phút)
   </div>
   <div>
     <strong>Hình thức</strong>
-    Online — Google Meet<br>7 buổi
+    Livestream Youtube<br>Miễn phí
   </div>
   <div>
     <strong>Tình trạng</strong>
     Đang mở đăng ký
+  </div>
+  <div>
+    <strong>Workshop 02</strong>
+    AI Campaign OS © 2026
   </div>
   <div class="footer-logo">
     <img src="entity-lab-logo-footer.webp" alt="Entity Lab">
